@@ -22,7 +22,7 @@ export const About = () => {
             <img 
               src="https://plus.unsplash.com/premium_photo-1725021280884-cce927816300?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
               className="w-full h-full object-cover filter saturate-50 contrast-110"
-              alt="Mark F. Kirkland"
+              alt="GISKUY Z. ZELLS"
             />
             <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-natural-olive rounded-full flex items-center justify-center text-white hidden md:flex shadow-xl">
                <span className="text-[8px] uppercase tracking-widest font-bold text-center p-2">Est. 2012</span>
@@ -38,7 +38,7 @@ export const About = () => {
         >
           <h2 className="text-3xl font-serif mb-8 text-natural-ink">The Story</h2>
           <p className="text-lg text-natural-muted leading-relaxed max-w-2xl mx-auto">
-            Mark F. Kirkland is a visual storyteller documenting the grit, the dust, and the silence of the open road.
+            Giskuy Z. Zells is a visual storyteller documenting the grit, the dust, and the silence of the open road.
             Currently based on the road, exploring the intersection of human endurance and mechanical grace.
           </p>
         </motion.div>

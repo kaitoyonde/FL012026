@@ -18,7 +18,7 @@ export const Footer = () => {
           <h2 className="text-4xl md:text-7xl font-serif mb-12">Let's talk journey.</h2>
           
           <div className="flex flex-wrap justify-center gap-12 md:gap-20 mb-24">
-            <a href="mailto:hello@markfkirkland.com" className="group flex flex-col items-center gap-4 transition-transform hover:-translate-y-1">
+            <a href="mailto:gisellegskuy@gmail.com" className="group flex flex-col items-center gap-4 transition-transform hover:-translate-y-1">
               <div className="w-20 h-20 rounded-full border border-natural-border flex items-center justify-center group-hover:bg-natural-olive group-hover:text-white transition-all duration-500 shadow-sm">
                 <Mail size={28} strokeWidth={1.2} />
               </div>
@@ -43,7 +43,7 @@ export const Footer = () => {
               <MapPin size={12} className="text-natural-olive" />
               <span>Available Internationally</span>
             </div>
-            <p>© 2024 — Mark F. Kirkland. All Rights Reserved.</p>
+            <p>© 2024 — Giskuy Z. Zells. All Rights Reserved.</p>
             <div className="flex gap-6">
               <span className="hover:text-natural-olive cursor-pointer">Privacy</span>
               <span className="hover:text-natural-olive cursor-pointer">Terms</span>
