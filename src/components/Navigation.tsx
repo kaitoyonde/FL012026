@@ -68,7 +68,7 @@ export const Navigation = () => {
         {/* Mobile Toggle */}
         <div 
           onClick={toggleMenu}
-          className="md:hidden absolute inset-0 flex flex-col gap-[7px] cursor-pointer z-[70] items-center justify-center lg:pointer-events-none"
+          className="md:hidden absolute inset-0 flex flex-col gap-[7px] cursor-pointer z-[70] items-right justify-right lg:pointer-events-none"
         >
           <motion.div 
             animate={isMenuOpen ? { rotate: 45, y: 9 } : { rotate: 0, y: 0 }}
