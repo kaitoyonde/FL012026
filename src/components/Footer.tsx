@@ -40,13 +40,9 @@ export const Footer = () => {
 
           <div className="pt-24 border-t border-natural-border flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] uppercase tracking-[0.2em] text-natural-muted font-bold">
             <div className="flex items-center gap-2">
-              <MapPin size={12} className="text-natural-olive" />
-              <span>Available Internationally</span>
             </div>
             <p>© 2024 — Giskuy Z. Zells. All Rights Reserved.</p>
             <div className="flex gap-6">
-              <span className="hover:text-natural-olive cursor-pointer">Privacy</span>
-              <span className="hover:text-natural-olive cursor-pointer">Terms</span>
             </div>
           </div>
         </motion.div>

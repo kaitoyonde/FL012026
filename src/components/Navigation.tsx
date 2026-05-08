@@ -94,7 +94,7 @@ export const Navigation = () => {
       >
         <div className="flex flex-col items-center gap-10">
           <Link to="/" className="text-2xl font-serif italic text-natural-ink">Home</Link>
-          <Link to="/images" className="text-2xl font-serif italic text-natural-ink">Images</Link>
+          <Link to="/photos" className="text-2xl font-serif italic text-natural-ink">Photos</Link>
           <Link to="/films" className="text-2xl font-serif italic text-natural-ink">Films</Link>
           <Link to="/about" className="text-2xl font-serif italic text-natural-ink">About</Link>
           <Link to="/contact" className="text-2xl font-serif italic text-natural-ink">Contact</Link>

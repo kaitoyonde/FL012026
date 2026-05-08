@@ -8,7 +8,7 @@ import React, { useEffect } from 'react';
 import { Navigation } from './components/Navigation';
 import { Footer } from './components/Footer';
 import { Home } from './pages/Home';
-import { Images } from './pages/Images';
+import { Images } from './pages/Photos';
 import { Films } from './pages/Films';
 import { About } from './pages/About';
 import { Contact } from './pages/Contact';
