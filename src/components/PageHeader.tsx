@@ -14,8 +14,8 @@ export const PageHeader = () => {
         transition={{ duration: 1 }}
         className="text-center"
       >
-        <h1 className="text-5xl md:text-8xl font-serif leading-none tracking-[-0.04em] mb-4 text-natural-ink">
-          GISKUY G. ZELLS
+        <h1 className="text-5xl md:text-8xl font-serif font-black leading-none tracking-[-0.04em] mb-4 text-natural-ink">
+          MARK F. KIRKLAND
         </h1>
         <p className="text-sm md:text-lg italic tracking-wide text-natural-muted">
           Motorcycle Touring • Visual Storyteller • Explorer

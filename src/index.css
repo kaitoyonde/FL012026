@@ -1,39 +1,21 @@
-@import url('https://fonts.googleapis.com/css2?family=Special+Gothic:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap');
 @import "tailwindcss";
 
-
 @theme {
-  --font-sans: "Special Gothic", ui-sans-serif, system-ui, sans-serif;
-  --font-serif:  "Special Gothic", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "League Spartan", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "League Spartan", sans-serif;
   
-  /* --color-natural-bg: #F7F5F2;
-  --color-natural-ink: #2D2A26;
-  --color-natural-olive: #5A5A40;
-  --color-natural-muted: #8C867E;
-  --color-natural-border: #DED9D1;
-  --color-natural-footer: #F2EFE9; */
-
   --color-natural-bg: #000000;
+  --color-natural-ink: #EAB308;
+  --color-natural-olive: #EAB308;
+  --color-natural-muted: #FFFFFF;
+  --color-natural-border: #27272A;
+  --color-natural-footer: #09090B;
 
-  /* Ink: The lightest cream/gold from the far right of your palette. 
-     This ensures high legibility against the black background. */
-  --color-natural-ink: #F4D39B;
-
-  /* Olive: The vibrant amber/gold (third from left). 
-     This acts as your primary accent color for buttons or highlights. */
-  --color-natural-olive: #DB9833;
-
-  /* Muted: The medium golden-brown (second from left). 
-     Good for secondary text or less important metadata. */
-  --color-natural-muted: #9F681E;
-
-  /* Border: The darkest chocolate brown from the far left. 
-     On a black background, this creates a subtle, elegant "sepia" border. */
-  --color-natural-border: #643B0F;
-
-  /* Footer: An "off-black" deep chocolate. 
-     This creates a soft visual separation from the main black background. */
-  --color-natural-footer: #1F1205; 
+  --font-weight-normal: 400;
+  --font-weight-medium: 600;
+  --font-weight-bold: 800;
+  --font-weight-black: 900;
 }
 
 :root {
@@ -48,20 +30,20 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Custom scrollbar for organic look */
+/* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 4px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #F7F5F2;
+  background: #000000;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #DED9D1;
+  background: #27272A;
   border-radius: 2px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #5A5A40;
+  background: #EAB308;
 }

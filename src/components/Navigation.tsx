@@ -15,7 +15,7 @@ const NavItem = ({ label, to }: { label: string; to: string }) => {
   return (
     <Link 
       to={to} 
-      className={`group relative text-xs uppercase tracking-[0.2em] font-semibold transition-colors hover:text-natural-olive ${isActive ? 'text-natural-olive' : 'text-natural-muted'}`}
+      className={`group relative text-xs uppercase tracking-[0.2em] font-bold transition-colors text-natural-olive`}
     >
       {label}
       <span className={`absolute -bottom-1 left-0 h-[1px] bg-natural-olive transition-all duration-300 ${isActive ? 'w-full' : 'w-0 group-hover:w-full'}`} />
@@ -47,8 +47,8 @@ export const Navigation = () => {
     <nav 
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 flex flex-col items-center justify-center ${
         isScrolled 
-          ? 'bg-natural-footer/95 backdrop-blur-md border-b border-natural-border shadow-sm' 
-          : 'bg-natural-footer/40 backdrop-blur-sm'
+          ? 'bg-black/95 backdrop-blur-md border-b border-natural-border shadow-2xl' 
+          : 'bg-black/40 backdrop-blur-sm'
       }`}
     >
       <div className={`relative w-full flex justify-center items-center px-6 transition-all duration-500 ${isScrolled ? 'h-14 md:h-20' : 'h-20 md:h-28'}`}>
@@ -94,7 +94,7 @@ export const Navigation = () => {
       >
         <div className="flex flex-col items-center gap-10">
           <Link to="/" className="text-2xl font-serif italic text-natural-ink">Home</Link>
-          <Link to="/photos" className="text-2xl font-serif italic text-natural-ink">Photos</Link>
+          <Link to="/images" className="text-2xl font-serif italic text-natural-ink">Images</Link>
           <Link to="/films" className="text-2xl font-serif italic text-natural-ink">Films</Link>
           <Link to="/about" className="text-2xl font-serif italic text-natural-ink">About</Link>
           <Link to="/contact" className="text-2xl font-serif italic text-natural-ink">Contact</Link>

@@ -1,5 +1,10 @@
+/**
+ * @license
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { motion } from 'motion/react';
-import { ChevronDown, Play, Pause, Volume2, VolumeX } from 'lucide-react';
+import { ChevronDown, Play, Pause, Volume2, VolumeX, Maximize } from 'lucide-react';
 import React, { useEffect, useRef, useState } from 'react';
 import { PageHeader } from '../components/PageHeader';
 import { PortfolioGrid } from '../components/PortfolioGrid';
@@ -67,6 +72,28 @@ export const Home = () => {
     }
   };
 
+  const toggleFullscreen = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (videoRef.current) {
+      if (document.fullscreenElement) {
+        document.exitFullscreen();
+      } else {
+        const video = videoRef.current;
+        video.requestFullscreen().then(() => {
+          // Attempt to lock orientation based on video aspect ratio
+          if (screen.orientation && (screen.orientation as any).lock) {
+            const isLandscape = video.videoWidth > video.videoHeight;
+            (screen.orientation as any).lock(isLandscape ? 'landscape' : 'portrait').catch((err: any) => {
+              console.warn("Screen orientation lock failed:", err);
+            });
+          }
+        }).catch(err => {
+          console.error("Fullscreen request failed:", err);
+        });
+      }
+    }
+  };
+
   const handleManualPlay = () => {
     if (videoRef.current) {
       if (videoRef.current.paused) {
@@ -82,12 +109,12 @@ export const Home = () => {
       <PageHeader />
       
       {/* Featured Intro Video */}
-      <section className="w-full">
+      <section className="px-6 md:px-12 py-8 max-w-7xl mx-auto">
         <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.3, duration: 1 }}
-          className="relative w-full aspect-video bg-natural-footer overflow-hidden group cursor-pointer"
+          initial={{ opacity: 0, scale: 0.98 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.3, duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+          className="relative w-full aspect-video bg-natural-footer overflow-hidden group cursor-pointer shadow-[0_0_50px_rgba(0,0,0,0.5)] border border-natural-border/30"
           onClick={handleManualPlay}
         >
           <div className="absolute inset-0 z-0">
@@ -109,13 +136,20 @@ export const Home = () => {
             initial={{ opacity: 1 }}
             animate={{ opacity: isPlaying ? 0 : 1 }}
             transition={{ duration: 0.5 }}
-            className="absolute bottom-8 left-8 text-white z-10 transition-transform duration-500 group-hover:translate-x-2"
+            className="absolute bottom-8 left-8 text-natural-ink z-10 transition-transform duration-500 group-hover:translate-x-2"
           >
             <span className="text-[10px] uppercase tracking-[0.3em] font-bold opacity-80 mb-2 block">Featured Film</span>
-            <h2 className="text-xl md:text-3xl font-serif italic">Across the Atlas: Morocco 2024</h2>
+            <h2 className="text-xl md:text-3xl font-serif font-bold italic">Across the Atlas: Morocco 2024</h2>
           </motion.div>
 
           <div className="absolute bottom-8 right-8 flex gap-4 z-20">
+             <button 
+                onClick={toggleFullscreen}
+                className="w-12 h-12 rounded-full bg-black/20 backdrop-blur-md border border-white/20 flex items-center justify-center hover:bg-white/20 transition-colors"
+                title="Fullscreen"
+             >
+                <Maximize size={18} className="text-white" />
+             </button>
              <button 
                 onClick={toggleMute}
                 className="w-12 h-12 rounded-full bg-black/20 backdrop-blur-md border border-white/20 flex items-center justify-center hover:bg-white/20 transition-colors"
@@ -139,7 +173,7 @@ export const Home = () => {
         <motion.div 
           animate={{ y: [0, 8, 0] }}
           transition={{ repeat: Infinity, duration: 2.5 }}
-          className="flex flex-col items-center gap-2 opacity-50 text-natural-olive"
+          className="flex flex-col items-center gap-2 opacity-50 text-natural-muted"
         >
           <span className="text-[10px] uppercase tracking-widest font-bold">Scroll to Explore</span>
           <ChevronDown size={14} />

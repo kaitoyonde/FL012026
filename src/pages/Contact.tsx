@@ -62,7 +62,7 @@ export const Contact = () => {
             <motion.button
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className="w-full py-4 bg-natural-olive text-white text-[10px] uppercase tracking-[0.3em] font-bold shadow-lg shadow-natural-olive/20 hover:bg-natural-ink transition-colors mt-8"
+              className="w-full py-4 bg-natural-olive text-black text-[10px] uppercase tracking-[0.3em] font-bold shadow-lg shadow-natural-olive/20 hover:bg-white hover:text-black transition-colors mt-8"
             >
               Send Message
             </motion.button>

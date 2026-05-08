@@ -25,8 +25,8 @@ export const PORTFOLIO_ITEMS = [
     title: "Coastal Mist",
     category: "Photography",
     type: "image",
-    url: "https://images.unsplash.com/photo-1503756234508-e32369269deb?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    thumbnail: "https://images.unsplash.com/photo-1503756234508-e32369269deb?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    url: "https://images.unsplash.com/photo-1459478309853-2c35a6005882?q=80&w=2070&auto=format&fit=crop",
+    thumbnail: "https://images.unsplash.com/photo-1459478309853-2c35a6005882?q=80&w=2070&auto=format&fit=crop"
   },
   {
     id: 4,
@@ -41,8 +41,8 @@ export const PORTFOLIO_ITEMS = [
     title: "Dust & Glory",
     category: "Photography",
     type: "image",
-    url: "https://images.unsplash.com/photo-1608566048123-c266ed1c7cd8?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    thumbnail: "https://images.unsplash.com/photo-1608566048123-c266ed1c7cd8?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    url: "https://images.unsplash.com/photo-1558981424-8140301e844a?q=80&w=2070&auto=format&fit=crop",
+    thumbnail: "https://images.unsplash.com/photo-1558981424-8140301e844a?q=80&w=2070&auto=format&fit=crop"
   },
   {
     id: 6,
@@ -51,5 +51,13 @@ export const PORTFOLIO_ITEMS = [
     type: "image",
     url: "https://images.unsplash.com/photo-1444491741275-3747c53c99b4?q=80&w=1974&auto=format&fit=crop",
     thumbnail: "https://images.unsplash.com/photo-1444491741275-3747c53c99b4?q=80&w=1974&auto=format&fit=crop"
+  },
+  {
+    id: 7,
+    title: "Local Asset Example",
+    category: "Tutorial",
+    type: "image",
+    url: "/assets/images/local-test.jpg", // This would point to public/assets/images/local-test.jpg
+    thumbnail: "/assets/images/local-test.jpg"
   }
 ];
