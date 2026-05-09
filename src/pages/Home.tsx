@@ -78,16 +78,7 @@ export const Home = () => {
       if (document.fullscreenElement) {
         document.exitFullscreen();
       } else {
-        const video = videoRef.current;
-        video.requestFullscreen().then(() => {
-          // Attempt to lock orientation based on video aspect ratio
-          if (screen.orientation && (screen.orientation as any).lock) {
-            const isLandscape = video.videoWidth > video.videoHeight;
-            (screen.orientation as any).lock(isLandscape ? 'landscape' : 'portrait').catch((err: any) => {
-              console.warn("Screen orientation lock failed:", err);
-            });
-          }
-        }).catch(err => {
+        videoRef.current.requestFullscreen().catch(err => {
           console.error("Fullscreen request failed:", err);
         });
       }
@@ -114,7 +105,7 @@ export const Home = () => {
           initial={{ opacity: 0, scale: 0.98 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.3, duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-          className="relative w-full aspect-video bg-natural-footer overflow-hidden group cursor-pointer shadow-[0_0_50px_rgba(0,0,0,0.5)] border border-natural-border/30"
+          className="relative w-full aspect-[4000/1920] bg-natural-footer overflow-hidden group cursor-pointer shadow-[0_0_50px_rgba(0,0,0,0.5)] border border-natural-border/30"
           onClick={handleManualPlay}
         >
           <div className="absolute inset-0 z-0">
@@ -125,10 +116,9 @@ export const Home = () => {
               loop 
               playsInline
               preload="auto"
-              poster="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?q=80&w=2070&auto=format&fit=crop"
               className="w-full h-full object-cover opacity-90 transition-transform duration-1000 group-hover:scale-105"
             >
-              <source src="https://assets.mixkit.co/videos/preview/mixkit-motorcycle-rider-on-a-rural-road-at-sunset-1300-large.mp4" type="video/mp4" />
+              <source src="/ANAMORPHIC.MP4" type="video/mp4" />
             </video>
           </div>
           
@@ -139,7 +129,7 @@ export const Home = () => {
             className="absolute bottom-8 left-8 text-natural-ink z-10 transition-transform duration-500 group-hover:translate-x-2"
           >
             <span className="text-[10px] uppercase tracking-[0.3em] font-bold opacity-80 mb-2 block">Featured Film</span>
-            <h2 className="text-xl md:text-3xl font-serif font-bold italic">Across the Atlas: Morocco 2024</h2>
+            <h2 className="text-xl md:text-3xl font-serif font-bold">Across the Atlas: Morocco 2024</h2>
           </motion.div>
 
           <div className="absolute bottom-8 right-8 flex gap-4 z-20">

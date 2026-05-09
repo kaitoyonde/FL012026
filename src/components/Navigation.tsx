@@ -93,11 +93,11 @@ export const Navigation = () => {
         className="fixed top-0 left-0 w-full bg-natural-bg overflow-hidden flex flex-col items-center justify-center gap-12 z-[60] md:hidden pointer-events-auto"
       >
         <div className="flex flex-col items-center gap-10">
-          <Link to="/" className="text-2xl font-serif italic text-natural-ink">Home</Link>
-          <Link to="/images" className="text-2xl font-serif italic text-natural-ink">Images</Link>
-          <Link to="/films" className="text-2xl font-serif italic text-natural-ink">Films</Link>
-          <Link to="/about" className="text-2xl font-serif italic text-natural-ink">About</Link>
-          <Link to="/contact" className="text-2xl font-serif italic text-natural-ink">Contact</Link>
+          <Link to="/" className="text-2xl font-serif text-natural-ink">Home</Link>
+          <Link to="/images" className="text-2xl font-serif text-natural-ink">Images</Link>
+          <Link to="/films" className="text-2xl font-serif text-natural-ink">Films</Link>
+          <Link to="/about" className="text-2xl font-serif text-natural-ink">About</Link>
+          <Link to="/contact" className="text-2xl font-serif text-natural-ink">Contact</Link>
         </div>
         
         <div className="mt-8 text-center px-12">

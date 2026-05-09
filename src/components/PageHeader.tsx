@@ -15,7 +15,7 @@ export const PageHeader = () => {
         className="text-center"
       >
         <h1 className="text-5xl md:text-8xl font-serif font-black leading-none tracking-[-0.04em] mb-4 text-natural-ink">
-          CHARISMA G. LYFE
+          KHARISMA.LIFE
         </h1>
         <p className="text-sm md:text-lg tracking-wide text-natural-muted">
           Motorcycle Touring • Visual Storyteller • Explorer

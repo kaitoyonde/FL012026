@@ -37,12 +37,8 @@ export const VideoLightbox = ({ item, onClose }: VideoLightboxProps) => {
       if (document.fullscreenElement) {
         document.exitFullscreen();
       } else {
-        const video = videoRef.current;
-        video.requestFullscreen().then(() => {
-          if (screen.orientation && (screen.orientation as any).lock) {
-            const isLandscape = video.videoWidth > video.videoHeight;
-            (screen.orientation as any).lock(isLandscape ? 'landscape' : 'portrait').catch(() => {});
-          }
+        videoRef.current.requestFullscreen().catch(err => {
+          console.error("Fullscreen request failed:", err);
         });
       }
     }
@@ -71,7 +67,7 @@ export const VideoLightbox = ({ item, onClose }: VideoLightboxProps) => {
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.9, opacity: 0 }}
-            className="relative w-full max-w-6xl aspect-video bg-black rounded-lg overflow-hidden shadow-2xl"
+            className="relative w-full max-w-7xl aspect-[4000/1920] bg-black rounded-lg overflow-hidden shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
             <video 

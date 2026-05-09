@@ -25,7 +25,7 @@ export const Contact = () => {
                   type="text" 
                   id="name"
                   placeholder="John Doe"
-                  className="bg-transparent border-b border-natural-border py-3 px-1 focus:outline-none focus:border-natural-olive transition-colors text-natural-ink font-serif italic"
+                  className="bg-transparent border-b border-natural-border py-3 px-1 focus:outline-none focus:border-natural-olive transition-colors text-natural-ink font-serif"
                 />
               </div>
               <div className="flex flex-col gap-2">
@@ -34,7 +34,7 @@ export const Contact = () => {
                   type="email" 
                   id="email"
                   placeholder="john@example.com"
-                  className="bg-transparent border-b border-natural-border py-3 px-1 focus:outline-none focus:border-natural-olive transition-colors text-natural-ink font-serif italic"
+                  className="bg-transparent border-b border-natural-border py-3 px-1 focus:outline-none focus:border-natural-olive transition-colors text-natural-ink font-serif"
                 />
               </div>
             </div>
@@ -45,7 +45,7 @@ export const Contact = () => {
                 type="text" 
                 id="subject"
                 placeholder="Collaboration Inquiry"
-                className="bg-transparent border-b border-natural-border py-3 px-1 focus:outline-none focus:border-natural-olive transition-colors text-natural-ink font-serif italic"
+                className="bg-transparent border-b border-natural-border py-3 px-1 focus:outline-none focus:border-natural-olive transition-colors text-natural-ink font-serif"
               />
             </div>
 
@@ -55,7 +55,7 @@ export const Contact = () => {
                 id="message"
                 rows={4}
                 placeholder="Tell me about your journey..."
-                className="bg-transparent border-b border-natural-border py-3 px-1 focus:outline-none focus:border-natural-olive transition-colors text-natural-ink font-serif italic resize-none"
+                className="bg-transparent border-b border-natural-border py-3 px-1 focus:outline-none focus:border-natural-olive transition-colors text-natural-ink font-serif resize-none"
               ></textarea>
             </div>
 
