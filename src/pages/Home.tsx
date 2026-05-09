@@ -11,9 +11,20 @@ import { PortfolioGrid } from '../components/PortfolioGrid';
 import { PORTFOLIO_ITEMS } from '../constants';
 
 export const Home = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(true);
   const [isMuted, setIsMuted] = useState(true);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(!!document.fullscreenElement);
+    };
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
+  }, []);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -29,37 +40,10 @@ export const Home = () => {
       video.addEventListener('pause', handlePause);
       video.addEventListener('volumechange', handleVolumeChange);
 
-      // Explicitly set muted property to help bypass autoplay blocks
-      video.muted = true;
-      const attemptPlay = () => {
-        video.play().then(() => setIsPlaying(true)).catch(error => {
-          console.warn("Autoplay wait - interaction may be needed:", error);
-          setIsPlaying(false);
-        });
-      };
-      
-      // Try immediate play
-      attemptPlay();
-      
-      // Also try play on first user interaction with the document
-      // which is a common pattern to "unlock" videos
-      const handleFirstInteraction = () => {
-        if (video.paused) {
-          attemptPlay();
-        }
-        document.removeEventListener('click', handleFirstInteraction);
-        document.removeEventListener('scroll', handleFirstInteraction);
-      };
-      
-      document.addEventListener('click', handleFirstInteraction);
-      document.addEventListener('scroll', handleFirstInteraction);
-      
       return () => {
         video.removeEventListener('play', handlePlay);
         video.removeEventListener('pause', handlePause);
         video.removeEventListener('volumechange', handleVolumeChange);
-        document.removeEventListener('click', handleFirstInteraction);
-        document.removeEventListener('scroll', handleFirstInteraction);
       };
     }
   }, []);
@@ -74,23 +58,34 @@ export const Home = () => {
 
   const toggleFullscreen = (e: React.MouseEvent) => {
     e.stopPropagation();
-    if (videoRef.current) {
+    if (containerRef.current) {
       if (document.fullscreenElement) {
         document.exitFullscreen();
       } else {
-        videoRef.current.requestFullscreen().catch(err => {
+        containerRef.current.requestFullscreen().catch(err => {
           console.error("Fullscreen request failed:", err);
         });
       }
     }
   };
 
-  const handleManualPlay = () => {
-    if (videoRef.current) {
-      if (videoRef.current.paused) {
-        videoRef.current.play();
-      } else {
-        videoRef.current.pause();
+  const handleManualPlay = async () => {
+    if (videoRef.current && containerRef.current) {
+      try {
+        if (!document.fullscreenElement) {
+          await containerRef.current.requestFullscreen();
+        }
+        
+        if (videoRef.current.paused) {
+          videoRef.current.muted = false; // Unmute when user explicitly plays in fullscreen
+          await videoRef.current.play();
+        } else {
+          videoRef.current.pause();
+        }
+      } catch (err) {
+        console.error("Interaction failed:", err);
+        // Fallback for browsers that block play() or fullscreen
+        videoRef.current.play().catch(() => {});
       }
     }
   };
@@ -102,21 +97,20 @@ export const Home = () => {
       {/* Featured Intro Video */}
       <section className="px-6 md:px-12 py-8 max-w-7xl mx-auto">
         <motion.div 
+          ref={containerRef}
           initial={{ opacity: 0, scale: 0.98 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.3, duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-          className="relative w-full aspect-[4000/1920] bg-natural-footer overflow-hidden group cursor-pointer shadow-[0_0_50px_rgba(0,0,0,0.5)] border border-natural-border/30"
+          className="relative w-full aspect-[4000/1920] bg-natural-footer overflow-hidden group cursor-pointer shadow-[0_0_50px_rgba(0,0,0,0.5)] border border-natural-border/30 [&:fullscreen]:flex [&:fullscreen]:items-center [&:fullscreen]:justify-center [&:fullscreen]:bg-black [&:fullscreen]:w-full [&:fullscreen]:h-full"
           onClick={handleManualPlay}
         >
-          <div className="absolute inset-0 z-0">
+          <div className={`absolute inset-0 z-0 ${isFullscreen ? 'relative w-full h-full flex items-center justify-center' : ''}`}>
             <video 
               ref={videoRef}
-              autoPlay 
-              muted 
               loop 
               playsInline
               preload="auto"
-              className="w-full h-full object-cover opacity-90 transition-transform duration-1000 group-hover:scale-105"
+              className={`w-full h-full transition-transform duration-1000 ${isFullscreen ? 'object-contain opacity-100' : 'object-cover opacity-90 group-hover:scale-105'}`}
             >
               <source src="/ANAMORPHIC.MP4" type="video/mp4" />
             </video>

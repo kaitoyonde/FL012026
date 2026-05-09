@@ -14,14 +14,13 @@ interface VideoLightboxProps {
 }
 
 export const VideoLightbox = ({ item, onClose }: VideoLightboxProps) => {
+  const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(true);
   const [isMuted, setIsMuted] = useState(false);
 
   useEffect(() => {
-    if (item && videoRef.current) {
-      videoRef.current.play().catch(err => console.warn("Lightbox play failed:", err));
-    }
+    // Initial effect removed to respect no autoplay
   }, [item]);
 
   useEffect(() => {
@@ -33,13 +32,32 @@ export const VideoLightbox = ({ item, onClose }: VideoLightboxProps) => {
   }, [onClose]);
 
   const toggleFullscreen = () => {
-    if (videoRef.current) {
+    if (containerRef.current) {
       if (document.fullscreenElement) {
         document.exitFullscreen();
       } else {
-        videoRef.current.requestFullscreen().catch(err => {
+        containerRef.current.requestFullscreen().catch(err => {
           console.error("Fullscreen request failed:", err);
         });
+      }
+    }
+  };
+
+  const handleManualPlay = async () => {
+    if (videoRef.current && containerRef.current) {
+      try {
+        if (!document.fullscreenElement) {
+          await containerRef.current.requestFullscreen();
+        }
+        
+        if (videoRef.current.paused) {
+          await videoRef.current.play();
+        } else {
+          videoRef.current.pause();
+        }
+      } catch (err) {
+        console.error("Interaction failed:", err);
+        videoRef.current.play().catch(() => {});
       }
     }
   };
@@ -64,23 +82,35 @@ export const VideoLightbox = ({ item, onClose }: VideoLightboxProps) => {
           </button>
 
           <motion.div 
+            ref={containerRef}
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.9, opacity: 0 }}
-            className="relative w-full max-w-7xl aspect-[4000/1920] bg-black rounded-lg overflow-hidden shadow-2xl"
+            className="relative w-full max-w-7xl aspect-[4000/1920] bg-black rounded-lg overflow-hidden shadow-2xl [&:fullscreen]:flex [&:fullscreen]:items-center [&:fullscreen]:justify-center [&:fullscreen]:max-w-none [&:fullscreen]:aspect-auto [&:fullscreen]:w-full [&:fullscreen]:h-full"
             onClick={(e) => e.stopPropagation()}
           >
             <video 
               ref={videoRef}
               src={item.url}
               className="w-full h-full object-contain"
-              autoPlay
               playsInline
               onPlay={() => setIsPlaying(true)}
               onPause={() => setIsPlaying(false)}
             />
 
-            <div className="absolute bottom-6 right-6 flex gap-4 opacity-0 hover:opacity-100 transition-opacity duration-300">
+            <div className="absolute inset-0 z-0 flex items-center justify-center bg-black/20" onClick={handleManualPlay}>
+               {!isPlaying && (
+                 <motion.div 
+                   initial={{ scale: 0.8, opacity: 0 }}
+                   animate={{ scale: 1, opacity: 1 }}
+                   className="w-20 h-20 rounded-full bg-natural-olive flex items-center justify-center shadow-2xl"
+                 >
+                   <Play size={32} className="text-black ml-1" fill="currentColor" />
+                 </motion.div>
+               )}
+            </div>
+
+            <div className="absolute bottom-6 right-6 flex gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
                <button 
                   onClick={toggleFullscreen}
                   className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center hover:bg-white/20 transition-colors"
@@ -101,12 +131,7 @@ export const VideoLightbox = ({ item, onClose }: VideoLightboxProps) => {
                   {isMuted ? <VolumeX size={16} className="text-white" /> : <Volume2 size={16} className="text-white" />}
                </button>
                <button 
-                  onClick={() => {
-                    if (videoRef.current) {
-                      if (videoRef.current.paused) videoRef.current.play();
-                      else videoRef.current.pause();
-                    }
-                  }}
+                  onClick={handleManualPlay}
                   className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center hover:bg-white/20 transition-colors"
                   title={isPlaying ? "Pause" : "Play"}
                >
