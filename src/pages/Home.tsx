@@ -125,11 +125,11 @@ export const Home = () => {
               loop 
               playsInline
               preload="auto"
+              poster="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?q=80&w=2070&auto=format&fit=crop"
               className="w-full h-full object-cover opacity-90 transition-transform duration-1000 group-hover:scale-105"
             >
-              <source src="/ANAMORPHIC.MP4" type="video/mp4" />
+              <source src="https://assets.mixkit.co/videos/preview/mixkit-motorcycle-rider-on-a-rural-road-at-sunset-1300-large.mp4" type="video/mp4" />
             </video>
-            <div className="absolute inset-0 bg-gradient-to-t from-natural-ink/40 via-transparent to-transparent" />
           </div>
           
           <motion.div 

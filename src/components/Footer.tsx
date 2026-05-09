@@ -15,7 +15,7 @@ export const Footer = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-4xl md:text-7xl font-serif font-black mb-12 text-natural-ink">Let's <span className="text-natural-olive italic">talk</span> journey.</h2>
+          <h2 className="text-4xl md:text-7xl font-serif font-black mb-12 text-natural-ink">Let's talk journey.</h2>
           
           <div className="flex flex-wrap justify-center gap-12 md:gap-20 mb-24">
             <a href="mailto:hello@markfkirkland.com" className="group flex flex-col items-center gap-4 transition-transform hover:-translate-y-1">
@@ -40,13 +40,9 @@ export const Footer = () => {
 
           <div className="pt-24 border-t border-natural-border flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] uppercase tracking-[0.2em] text-natural-muted font-bold">
             <div className="flex items-center gap-2">
-              <MapPin size={12} className="text-natural-olive" />
-              <span>Available Internationally</span>
             </div>
-            <p>© 2024 — Mark F. Kirkland. All Rights Reserved.</p>
+            <p>© 2024 — CHARISMA G. LYFE. All Rights Reserved.</p>
             <div className="flex gap-6">
-              <span className="hover:text-natural-olive cursor-pointer">Privacy</span>
-              <span className="hover:text-natural-olive cursor-pointer">Terms</span>
             </div>
           </div>
         </motion.div>

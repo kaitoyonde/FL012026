@@ -51,7 +51,7 @@ export const Navigation = () => {
           : 'bg-black/40 backdrop-blur-sm'
       }`}
     >
-      <div className={`relative w-full flex justify-center items-center px-6 transition-all duration-500 ${isScrolled ? 'h-14 md:h-20' : 'h-20 md:h-28'}`}>
+      <div className={`relative w-full flex justify-center items-center px-6 transition-all duration-500 ${isScrolled ? 'h-12 md:h-16' : 'h-16 md:h-22'}`}>
         {/* Desktop Menu */}
         <motion.div 
           initial={{ opacity: 0, y: -10 }}
@@ -68,7 +68,7 @@ export const Navigation = () => {
         {/* Mobile Toggle */}
         <div 
           onClick={toggleMenu}
-          className="md:hidden absolute inset-0 flex flex-col gap-[7px] cursor-pointer z-[70] items-right justify-right lg:pointer-events-none"
+          className="md:hidden absolute left-6 top-1/2 -translate-y-1/2 flex flex-col gap-[7px] cursor-pointer z-[70]"
         >
           <motion.div 
             animate={isMenuOpen ? { rotate: 45, y: 9 } : { rotate: 0, y: 0 }}
