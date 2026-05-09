@@ -11,7 +11,6 @@ import { PortfolioGrid } from '../components/PortfolioGrid';
 import { PORTFOLIO_ITEMS } from '../constants';
 
 export const Home = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(true);
   const [isMuted, setIsMuted] = useState(true);
@@ -26,24 +25,30 @@ export const Home = () => {
     return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
   }, []);
 
+  const handlePlay = () => {
+    setIsPlaying(true);
+    if (videoRef.current && !document.fullscreenElement) {
+      videoRef.current.requestFullscreen().catch(err => {
+        console.error("Fullscreen automatically failed:", err);
+      });
+    }
+  };
+
+  const handlePause = () => setIsPlaying(false);
+  const handleVolumeChange = () => {
+    if (videoRef.current) {
+      setIsMuted(videoRef.current.muted);
+    }
+  };
+
   useEffect(() => {
     const video = videoRef.current;
     if (video) {
       setIsPlaying(!video.paused);
       setIsMuted(video.muted);
 
-      const handlePlay = () => setIsPlaying(true);
-      const handlePause = () => setIsPlaying(false);
-      const handleVolumeChange = () => setIsMuted(video.muted);
-
-      video.addEventListener('play', handlePlay);
-      video.addEventListener('pause', handlePause);
-      video.addEventListener('volumechange', handleVolumeChange);
-
       return () => {
-        video.removeEventListener('play', handlePlay);
-        video.removeEventListener('pause', handlePause);
-        video.removeEventListener('volumechange', handleVolumeChange);
+        // Event listeners are now handled by JSX props
       };
     }
   }, []);
@@ -58,11 +63,11 @@ export const Home = () => {
 
   const toggleFullscreen = (e: React.MouseEvent) => {
     e.stopPropagation();
-    if (containerRef.current) {
+    if (videoRef.current) {
       if (document.fullscreenElement) {
         document.exitFullscreen();
       } else {
-        containerRef.current.requestFullscreen().catch(err => {
+        videoRef.current.requestFullscreen().catch(err => {
           console.error("Fullscreen request failed:", err);
         });
       }
@@ -70,10 +75,10 @@ export const Home = () => {
   };
 
   const handleManualPlay = async () => {
-    if (videoRef.current && containerRef.current) {
+    if (videoRef.current) {
       try {
         if (!document.fullscreenElement) {
-          await containerRef.current.requestFullscreen();
+          await videoRef.current.requestFullscreen();
         }
         
         if (videoRef.current.paused) {
@@ -97,58 +102,24 @@ export const Home = () => {
       {/* Featured Intro Video */}
       <section className="px-6 md:px-12 py-8 max-w-7xl mx-auto">
         <motion.div 
-          ref={containerRef}
           initial={{ opacity: 0, scale: 0.98 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.3, duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-          className="relative w-full aspect-[4000/1920] bg-natural-footer overflow-hidden group cursor-pointer shadow-[0_0_50px_rgba(0,0,0,0.5)] border border-natural-border/30 [&:fullscreen]:flex [&:fullscreen]:items-center [&:fullscreen]:justify-center [&:fullscreen]:bg-black [&:fullscreen]:w-full [&:fullscreen]:h-full"
-          onClick={handleManualPlay}
+          className="relative w-full aspect-[4000/1920] bg-black overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)] border border-natural-border/30 rounded-xl"
         >
-          <div className={`absolute inset-0 z-0 ${isFullscreen ? 'relative w-full h-full flex items-center justify-center' : ''}`}>
-            <video 
-              ref={videoRef}
-              loop 
-              playsInline
-              preload="auto"
-              className={`w-full h-full transition-transform duration-1000 ${isFullscreen ? 'object-contain opacity-100' : 'object-cover opacity-90 group-hover:scale-105'}`}
-            >
-              <source src="/ANAMORPHIC.MP4" type="video/mp4" />
-            </video>
-          </div>
-          
-          <motion.div 
-            initial={{ opacity: 1 }}
-            animate={{ opacity: isPlaying ? 0 : 1 }}
-            transition={{ duration: 0.5 }}
-            className="absolute bottom-8 left-8 text-natural-ink z-10 transition-transform duration-500 group-hover:translate-x-2"
+          <video 
+            ref={videoRef}
+            controls
+            loop 
+            playsInline
+            preload="auto"
+            className="w-full h-full object-cover opacity-90 shadow-2xl"
+            onPlay={handlePlay}
+            onPause={handlePause}
+            onVolumeChange={handleVolumeChange}
           >
-            <span className="text-[10px] uppercase tracking-[0.3em] font-bold opacity-80 mb-2 block">Featured Film</span>
-            <h2 className="text-xl md:text-3xl font-serif font-bold">Across the Atlas: Morocco 2024</h2>
-          </motion.div>
-
-          <div className="absolute bottom-8 right-8 flex gap-4 z-20">
-             <button 
-                onClick={toggleFullscreen}
-                className="w-12 h-12 rounded-full bg-black/20 backdrop-blur-md border border-white/20 flex items-center justify-center hover:bg-white/20 transition-colors"
-                title="Fullscreen"
-             >
-                <Maximize size={18} className="text-white" />
-             </button>
-             <button 
-                onClick={toggleMute}
-                className="w-12 h-12 rounded-full bg-black/20 backdrop-blur-md border border-white/20 flex items-center justify-center hover:bg-white/20 transition-colors"
-                title={isMuted ? "Unmute" : "Mute"}
-             >
-                {isMuted ? <VolumeX size={18} className="text-white" /> : <Volume2 size={18} className="text-white" />}
-             </button>
-             <div className="w-12 h-12 rounded-full bg-black/20 backdrop-blur-md border border-white/20 flex items-center justify-center hover:bg-white/20 transition-colors">
-                {isPlaying ? (
-                  <Pause size={18} className="text-white" fill="white" />
-                ) : (
-                  <Play size={18} className="text-white ml-0.5" fill="white" />
-                )}
-             </div>
-          </div>
+            <source src="/ANAMORPHIC.MP4" type="video/mp4" />
+          </video>
         </motion.div>
       </section>
 
