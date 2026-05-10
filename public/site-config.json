@@ -1,0 +1,15 @@
+{
+  "siteName": "kharisma.life",
+  "hero": {
+    "videoUrl": "/ANAMORPHIC.MP4",
+    "title": "Kharisma.life",
+    "subtitle": "A minimalist videography and photography portfolio for the motorcycle touring lifestyle."
+  },
+  "footer": {
+    "text": "© 2024 kharisma.life. All rights reserved.",
+    "links": [
+      { "label": "Instagram", "url": "https://instagram.com" },
+      { "label": "YouTube", "url": "https://youtube.com" }
+    ]
+  }
+}

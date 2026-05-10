@@ -15,6 +15,7 @@ interface PortfolioGridProps {
   subtitle?: string;
   showHeader?: boolean;
   showDetails?: boolean;
+  isLoading?: boolean;
 }
 
 export const PortfolioGrid = ({ 
@@ -22,9 +23,32 @@ export const PortfolioGrid = ({
   title = "Featured Stories", 
   subtitle = "The Dust & The Grit",
   showHeader = true,
-  showDetails = true
+  showDetails = true,
+  isLoading = false
 }: PortfolioGridProps) => {
   const [selectedItem, setSelectedItem] = useState<PortfolioItem | null>(null);
+
+  if (isLoading) {
+    return (
+      <section className={`${showHeader ? 'py-24' : 'pt-8 pb-24'} px-6 md:px-12 max-w-screen-2xl mx-auto`}>
+        {showHeader && (
+          <div className="mb-16 border-b border-natural-border pb-8">
+            <div className="h-10 w-64 bg-natural-footer animate-pulse rounded mb-2" />
+            <div className="h-4 w-32 bg-natural-footer animate-pulse rounded" />
+          </div>
+        )}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
+          {[1, 2, 3, 4, 5, 6].map((i) => (
+            <div key={i} className="space-y-4">
+              <div className="aspect-[4/5] bg-natural-footer animate-pulse rounded-lg" />
+              <div className="h-6 w-3/4 bg-natural-footer animate-pulse rounded" />
+              <div className="h-4 w-1/4 bg-natural-footer animate-pulse rounded" />
+            </div>
+          ))}
+        </div>
+      </section>
+    );
+  }
 
   return (
     <>
@@ -42,7 +66,7 @@ export const PortfolioGrid = ({
           </div>
         )}
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
+        <div className="columns-1 md:columns-2 lg:columns-3 gap-8 md:gap-12 space-y-8 md:space-y-12">
           {items.map((item, index) => (
             <motion.div
               key={item.id}
@@ -50,14 +74,14 @@ export const PortfolioGrid = ({
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="group cursor-pointer"
-              onClick={() => item.type === 'video' ? setSelectedItem(item) : null}
+              className="break-inside-avoid group cursor-pointer"
+              onClick={() => setSelectedItem(item)}
             >
-              <div className="relative aspect-[4/5] overflow-hidden bg-natural-footer rounded-lg shadow-sm border border-natural-border/30">
+              <div className="relative overflow-hidden bg-natural-footer rounded-lg shadow-sm border border-natural-border/30">
                 <img 
                   src={item.thumbnail} 
                   alt={item.title}
-                  className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 filter grayscale-[0.3] group-hover:grayscale-0 contrast-110"
+                  className="w-full h-auto transition-transform duration-1000 group-hover:scale-105 filter grayscale-[0.3] group-hover:grayscale-0 contrast-110"
                 />
                 <div className="absolute inset-0 bg-natural-olive/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                    <div className="w-14 h-14 rounded-full bg-natural-olive text-black flex items-center justify-center transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 shadow-2xl">

@@ -84,23 +84,42 @@ export const VideoLightbox = ({ item, onClose }: VideoLightboxProps) => {
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.9, opacity: 0 }}
-            className="relative w-full max-w-7xl aspect-[4000/1920] bg-black rounded-lg overflow-hidden shadow-2xl"
+            className="relative w-auto h-auto max-w-[95vw] max-h-[85vh] bg-black rounded-lg overflow-hidden shadow-2xl flex items-center justify-center"
             onClick={(e) => e.stopPropagation()}
           >
-            <video 
-              ref={videoRef}
-              src={item.url}
-              className="w-full h-full object-contain"
-              controls
-              playsInline
-              onPlay={() => {
-                setIsPlaying(true);
-                if (videoRef.current && !document.fullscreenElement) {
-                  videoRef.current.requestFullscreen().catch(() => {});
-                }
-              }}
-              onPause={() => setIsPlaying(false)}
-            />
+            {item.type === 'video' ? (
+              item.videoType === 'youtube' ? (
+                <div className="w-full aspect-video md:w-[75vw] lg:w-[65vw]">
+                  <iframe
+                    src={`${item.url}?autoplay=1`}
+                    className="w-full h-full"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  ></iframe>
+                </div>
+              ) : (
+                <video 
+                  ref={videoRef}
+                  src={item.url}
+                  className="w-auto h-auto max-w-full max-h-[85vh] object-contain"
+                  controls
+                  playsInline
+                  onPlay={() => {
+                    setIsPlaying(true);
+                    if (videoRef.current && !document.fullscreenElement) {
+                      videoRef.current.requestFullscreen().catch(() => {});
+                    }
+                  }}
+                  onPause={() => setIsPlaying(false)}
+                />
+              )
+            ) : (
+              <img 
+                src={item.url} 
+                alt={item.title}
+                className="w-auto h-auto max-w-full max-h-[85vh] object-contain"
+              />
+            )}
 
 
 

@@ -5,15 +5,16 @@
 
 import { PageHeader } from '../components/PageHeader';
 import { PortfolioGrid } from '../components/PortfolioGrid';
-import { PORTFOLIO_ITEMS } from '../constants';
+import { usePortfolio } from '../context/PortfolioContext';
 
 export const Films = () => {
-  const films = PORTFOLIO_ITEMS.filter(item => item.type === 'video');
+  const { items, isLoading } = usePortfolio();
+  const films = items.filter(item => item.type === 'video');
   
   return (
     <main>
       <PageHeader />
-      <PortfolioGrid items={films} showHeader={false} showDetails={false} />
+      <PortfolioGrid items={films} showHeader={false} showDetails={false} isLoading={isLoading} />
     </main>
   );
 };

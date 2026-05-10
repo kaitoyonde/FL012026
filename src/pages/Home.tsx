@@ -8,9 +8,10 @@ import { ChevronDown, Play, Pause, Volume2, VolumeX, Maximize } from 'lucide-rea
 import React, { useEffect, useRef, useState } from 'react';
 import { PageHeader } from '../components/PageHeader';
 import { PortfolioGrid } from '../components/PortfolioGrid';
-import { PORTFOLIO_ITEMS } from '../constants';
+import { usePortfolio } from '../context/PortfolioContext';
 
 export const Home = () => {
+  const { items, config, isLoading } = usePortfolio();
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(true);
   const [isMuted, setIsMuted] = useState(true);
@@ -117,8 +118,9 @@ export const Home = () => {
             onPlay={handlePlay}
             onPause={handlePause}
             onVolumeChange={handleVolumeChange}
+            key={config?.hero.videoUrl}
           >
-            <source src="/ANAMORPHIC.MP4" type="video/mp4" />
+            {config?.hero.videoUrl && <source src={config.hero.videoUrl} type="video/mp4" />}
           </video>
         </motion.div>
       </section>
@@ -135,7 +137,7 @@ export const Home = () => {
         </motion.div>
       </section>
 
-      <PortfolioGrid items={PORTFOLIO_ITEMS.slice(0, 3)} title="Featured Stories" subtitle="Selected Works" />
+      <PortfolioGrid items={items.slice(0, 3)} title="Featured Stories" subtitle="Selected Works" isLoading={isLoading} />
     </main>
   );
 };
